@@ -235,6 +235,7 @@ class MainWindow(Adw.ApplicationWindow):
                 e for e in self._entries
                 if search_text in e.name.lower()
                 or any(search_text in c.lower() for c in e.categories)
+                or any(search_text in k.lower() for k in e.keywords)
             ]
 
         for entry in visible_entries:

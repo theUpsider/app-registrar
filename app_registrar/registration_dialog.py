@@ -80,6 +80,13 @@ class RegistrationDialog(Adw.Window):
         self._exec_row.add_suffix(exec_browse)
         general_group.add(self._exec_row)
 
+        self._keywords_row = Adw.EntryRow()
+        self._keywords_row.set_title(_('Keywords'))
+        self._keywords_row.set_tooltip_text(
+            _('Comma-separated search terms for finding this app (e.g. editor, text, code)')
+        )
+        general_group.add(self._keywords_row)
+
         content.append(general_group)
 
         icon_group = Adw.PreferencesGroup()
@@ -180,6 +187,8 @@ class RegistrationDialog(Adw.Window):
         self._name_row.set_text(entry.name)
         self._comment_row.set_text(entry.comment)
         self._exec_row.set_text(entry.exec_path)
+        if entry.keywords:
+            self._keywords_row.set_text(', '.join(entry.keywords))
         if entry.icon:
             self._set_icon(entry.icon)
         for cat in entry.categories:
@@ -258,6 +267,9 @@ class RegistrationDialog(Adw.Window):
         categories = [cat for cat, check in self._category_checks.items()
                       if check.get_active()]
 
+        keywords_text = self._keywords_row.get_text().strip()
+        keywords = [k.strip() for k in keywords_text.split(',') if k.strip()] if keywords_text else []
+
         if self._entry:
             entry = self._entry
             entry.name = name
@@ -265,6 +277,7 @@ class RegistrationDialog(Adw.Window):
             entry.comment = self._comment_row.get_text().strip()
             entry.icon = self._icon_path
             entry.categories = categories
+            entry.keywords = keywords
             entry.terminal = self._terminal_row.get_active()
             entry.startup_notify = self._notify_row.get_active()
         else:
@@ -274,6 +287,7 @@ class RegistrationDialog(Adw.Window):
                 comment=self._comment_row.get_text().strip(),
                 icon=self._icon_path,
                 categories=categories,
+                keywords=keywords,
                 terminal=self._terminal_row.get_active(),
                 startup_notify=self._notify_row.get_active(),
                 filename=sanitize_filename(name) + '.desktop',

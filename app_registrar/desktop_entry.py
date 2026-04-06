@@ -11,7 +11,7 @@ from .constants import (
     REGISTERED_BY_VALUE,
     REGISTRATION_DATE_KEY,
 )
-from .utils import sanitize_filename, update_desktop_database_async
+from .utils import sanitize_filename, generate_keywords, update_desktop_database_async
 
 
 @dataclass
@@ -21,6 +21,7 @@ class DesktopEntry:
     comment: str = ''
     icon: str = ''
     categories: list = field(default_factory=list)
+    keywords: list = field(default_factory=list)
     terminal: bool = False
     startup_notify: bool = True
     filename: str = ''
@@ -73,6 +74,8 @@ def read_desktop_entry(file_path: str):
             entry.icon = value
         elif key == 'Categories':
             entry.categories = [c for c in value.rstrip(';').split(';') if c]
+        elif key == 'Keywords':
+            entry.keywords = [k for k in value.rstrip(';').split(';') if k]
         elif key == 'Terminal':
             entry.terminal = value.lower() == 'true'
         elif key == 'StartupNotify':
@@ -109,6 +112,9 @@ def write_desktop_entry(entry: DesktopEntry) -> str:
 
     categories_str = ';'.join(entry.categories) + ';' if entry.categories else ''
 
+    all_keywords = generate_keywords(entry.name, entry.exec_path, entry.keywords)
+    keywords_str = ';'.join(all_keywords) + ';' if all_keywords else ''
+
     lines = [
         '[Desktop Entry]',
         'Type=Application',
@@ -123,6 +129,8 @@ def write_desktop_entry(entry: DesktopEntry) -> str:
         lines.append(f'Icon={entry.icon}')
     if categories_str:
         lines.append(f'Categories={categories_str}')
+    if keywords_str:
+        lines.append(f'Keywords={keywords_str}')
 
     lines.append(f'Terminal={"true" if entry.terminal else "false"}')
     lines.append(f'StartupNotify={"true" if entry.startup_notify else "false"}')

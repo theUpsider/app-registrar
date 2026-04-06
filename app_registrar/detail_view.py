@@ -72,6 +72,10 @@ class DetailView(Gtk.Box):
         self._categories_row.set_title(_('Categories'))
         details_group.add(self._categories_row)
 
+        self._keywords_row = Adw.ActionRow()
+        self._keywords_row.set_title(_('Keywords'))
+        details_group.add(self._keywords_row)
+
         self._terminal_row = Adw.ActionRow()
         self._terminal_row.set_title(_('Run in Terminal'))
         details_group.add(self._terminal_row)
@@ -115,6 +119,7 @@ class DetailView(Gtk.Box):
 
         self._exec_row.set_subtitle(entry.exec_path)
         self._categories_row.set_subtitle(', '.join(entry.categories) or _('None'))
+        self._keywords_row.set_subtitle(', '.join(entry.keywords) or _('None'))
         self._terminal_row.set_subtitle(_('Yes') if entry.terminal else _('No'))
         self._notify_row.set_subtitle(_('Yes') if entry.startup_notify else _('No'))
         self._date_row.set_subtitle(entry.registration_date or _('Unknown'))

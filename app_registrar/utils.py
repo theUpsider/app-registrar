@@ -63,3 +63,34 @@ def update_desktop_database_async():
         )
     except FileNotFoundError:
         pass
+
+
+def generate_keywords(name: str, exec_path: str, user_keywords: list = None) -> list:
+    """Build deduplicated keywords from user input, name tokens, and exec basename.
+
+    GNOME Shell's Activities search indexes Keywords with higher priority than
+    Name alone — auto-generating from name/exec ensures discoverability.
+    """
+    seen = set()
+    result = []
+
+    def _add(word):
+        lower = word.lower().strip()
+        if lower and lower not in seen:
+            seen.add(lower)
+            result.append(lower)
+
+    if user_keywords:
+        for kw in user_keywords:
+            _add(kw)
+
+    for token in re.split(r'[\s\-_]+', name):
+        _add(token)
+
+    if exec_path:
+        basename = os.path.basename(exec_path.split()[0])
+        _add(basename)
+        for token in re.split(r'[\s\-_\.]+', basename):
+            _add(token)
+
+    return result

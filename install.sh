@@ -49,7 +49,8 @@ Name=App Registrar
 Comment=Register executables as desktop applications
 Exec=env PYTHONPATH=$INSTALL_DIR /usr/bin/python3 -m app_registrar
 Icon=application-x-executable
-Categories=Utility;System;
+Categories=Utility;
+Keywords=app;registrar;register;desktop;launcher;executable;
 Terminal=false
 StartupNotify=true
 X-RegisteredBy=nautilus-app-registrar
