@@ -5,7 +5,7 @@ INSTALL_DIR="$HOME/.local/share/nautilus-app-registrar"
 EXTENSIONS_DIR="$HOME/.local/share/nautilus-python/extensions"
 APPLICATIONS_DIR="$HOME/.local/share/applications"
 CONFIG_DIR="$HOME/.config/nautilus-app-registrar"
-APP_DESKTOP="$APPLICATIONS_DIR/io.github.appregistrar.AppRegistrar.desktop"
+APP_DESKTOP="$APPLICATIONS_DIR/io.github.theUpsider.AppRegistrar.desktop"
 
 echo "=== App Registrar Uninstaller ==="
 echo ""

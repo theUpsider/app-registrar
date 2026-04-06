@@ -2,7 +2,7 @@
 
 import os
 
-APP_ID = 'io.github.appregistrar.AppRegistrar'
+APP_ID = 'io.github.theUpsider.AppRegistrar'
 APP_NAME = 'App Registrar'
 APP_VERSION = '1.0.0'
 

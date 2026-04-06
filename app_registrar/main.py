@@ -109,10 +109,10 @@ class AppRegistrar(Adw.Application):
             application_name=APP_NAME,
             application_icon='application-x-executable',
             version=APP_VERSION,
-            developer_name='App Registrar',
+            developer_name='David Vincent Fischer',
             license_type=Gtk.License.GPL_3_0,
             comments=_('Register executables as desktop applications'),
-            website='https://github.com/appregistrar/app-registrar',
+            website='https://github.com/theUpsider/app-registrar',
         )
         about.present(win)
 
