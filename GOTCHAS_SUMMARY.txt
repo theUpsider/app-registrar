@@ -1,0 +1,136 @@
+================================================================================
+FRAMEWORK GOTCHAS FOR APP REGISTRAR PROJECT - EXECUTIVE SUMMARY
+================================================================================
+
+PROJECT: Nautilus Python extension + GTK 4/libadwaita app + XDG .desktop files
+CONTEXT: Greenfield development with multiple external framework dependencies
+EXPECTED AUDIENCE: AI agents implementing features, likely missing these edge cases
+
+================================================================================
+TOP 3 CRITICAL GOTCHAS (Will Break Workflows)
+================================================================================
+
+1. NAUTILUS EXTENSION HOT-RELOAD DOESN'T EXIST
+   - Extensions load ONLY at Nautilus startup
+   - Changes require: `nautilus -q && sleep 1 && nautilus &`
+   - Agents will assume instant reload → wasted debugging
+   - IMPACT: Every extension test requires Nautilus restart
+
+2. FILEINFO IS STALE (Use os.access() instead)
+   - Nautilus.FileInfo permissions cache is unreliable
+   - Always use: os.access(path, os.X_OK) not FileInfo.is_executable()
+   - Multi-step operations (write → delete → recreate .desktop) can fail silently
+   - IMPACT: Agents create broken validation logic
+
+3. .DESKTOP FILES FAIL SILENTLY ON SYNTAX ERRORS
+   - Must end with blank line, semicolons must trail lists, no inline comments
+   - Filenames must be D-Bus valid: [A-Za-z0-9-_] only, no spaces
+   - Example: ✅ io.github.user.AppRegistrar.desktop  ❌ app registrar.DESKTOP
+   - IMPACT: Files created but never appear in app launcher
+
+================================================================================
+SECONDARY GOTCHAS (Will Cause Subtle Bugs)
+================================================================================
+
+4. GIO.APPLICATION SINGLE-INSTANCE FAILS SILENTLY
+   - App ID MUST match D-Bus reverse-DNS format
+   - Wrong flags → duplicate windows without error
+   - Gio.Application.get_default() unreliable for instance checking
+
+5. UPDATE-DESKTOP-DATABASE IS ASYNC
+   - subprocess.Popen() returns immediately (doesn't wait)
+   - Use subprocess.run() with time.sleep(0.5) after
+   - RACE CONDITION: Create .desktop → run update → query → entry missing
+
+6. CONFIG DIRECTORY AUTO-CREATION DOESN'T HAPPEN
+   - ~/.config/app-id/ must be manually created
+   - json.dump() silently fails to non-existent parent
+   - Settings persist mysteriously broken on first run
+
+7. GSETTINGS REQUIRES INSTALLED SCHEMA
+   - Dev code without .gschema.xml installation → settings fail
+   - WORKAROUND: Use JSON for dev, GSettings only for installed apps
+
+8. LIBADWAITA STYLESHEETS IGNORED WITHOUT GIO.RESOURCE
+   - CSS silently doesn't load if resource not registered
+   - Manual CSS load required for development
+
+9. GTK 4 BREAKPOINTS ARE REACTIVE, NOT PREDICTIVE
+   - Layout adapts AFTER window resize, not during
+   - Manual resizing needed to test responsive behavior
+
+10. MIME DATABASE REQUIRES TWO UPDATES
+    - Update .desktop file → run BOTH:
+      1. update-desktop-database
+      2. update-mime-database
+    - Only running one → MIME associations fail
+
+================================================================================
+FRAMEWORKS IDENTIFIED IN THIS PROJECT
+================================================================================
+
+1. Nautilus Python (gi.repository.Nautilus)
+   - MenuProvider for context menu integration
+   - FileInfo caching gotcha
+
+2. GTK 4 (gi.repository.Gtk)
+   - Main UI framework
+   - Responsive design gotchas
+
+3. libadwaita (gi.repository.Adw)
+   - GNOME app conventions
+   - ApplicationWindow + StyleManager
+   - Stylesheet loading gotcha
+
+4. PyGObject (gi.repository.GObject, Gio)
+   - GIO.Application (single instance)
+   - Settings persistence (GSettings vs JSON)
+   - Signal handling
+
+5. Desktop Entry Specification (freedesktop.org)
+   - .desktop file format
+   - update-desktop-database
+   - MIME type associations
+
+6. XDG Base Directory Spec
+   - ~/.config, ~/.local/share locations
+   - Directory creation responsibility
+
+================================================================================
+QUICK REFERENCE: VERIFICATION STEPS FOR AGENTS
+================================================================================
+
+After ANY change:
+
+✓ Nautilus extension:    `nautilus -q && sleep 1 && nautilus &`
+✓ Permission checks:     Use os.access(), NOT FileInfo properties
+✓ Single instance:       Verify app ID matches D-Bus format (reverse-DNS)
+✓ Settings file:         Check ~/.config/app-id/settings.json exists
+✓ .desktop file:         Validate with `desktop-file-validate`
+✓ App launcher:          Wait after `update-desktop-database`, restart launcher
+✓ Responsive UI:         Manually resize window to test breakpoints
+✓ Dark mode:             Confirm Adw.StyleManager tracks system theme
+
+================================================================================
+DOCUMENTATION SOURCES (All Current)
+================================================================================
+
+[NAUTILUS]
+https://gnome.pages.gitlab.gnome.org/nautilus-python/nautilus-python-overview-example.html
+
+[GTK 4 / LIBADWAITA]
+https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.0/class.ApplicationWindow.html
+https://gnome.pages.gitlab.gnome.org/pygobject/tutorials/libadwaita/application.html
+
+[GIO / STATE MANAGEMENT]
+https://developer.gnome.org/documentation/tutorials/save-state.html
+https://docs.gtk.org/gio/type_func.Application.get_default.html
+
+[DESKTOP ENTRY SPEC]
+https://xdg-specs-technobaboo-f55ac9d85e73073a0c8831695ba0fb110849811c0.pages.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
+
+[UPDATE TOOLS ISSUES]
+https://github.com/TheAssassin/AppImageLauncher/issues/445
+
+================================================================================
+END SUMMARY
