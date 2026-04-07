@@ -25,7 +25,9 @@ grade: stable
 confinement: strict
 
 icon: data/icons/hicolor/scalable/apps/io.github.theUpsider.AppRegistrar.svg
-
+donation: 
+  - davidvfischer@gmail.com
+  - https://buymeacoffee.com/theupsider
 apps:
   app-registrar:
     command: bin/app-registrar
