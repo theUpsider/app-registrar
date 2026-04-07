@@ -1,42 +1,96 @@
-<!--?xml version="1.0" encoding="UTF-8"?-->
-<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-
-  <!-- Base -->
-  <rect x="8" y="12" width="112" height="96" rx="20" fill="#3584e4"></rect>
-
-  <!-- Top highlight -->
-  <rect x="8" y="12" width="112" height="48" rx="20" fill="#ffffff" opacity="0.08"></rect>
-
-  <!-- Bottom shade (profile depth) -->
-  <rect x="8" y="64" width="112" height="44" rx="20" fill="#1c71d8" opacity="0.45"></rect>
-
-  <!-- Inner surface (slightly inset panel) -->
-  <rect x="20" y="24" width="88" height="56" rx="12" fill="#4c97ff"></rect>
-
-  <!-- Inner shadow -->
-  <rect x="20" y="52" width="88" height="28" rx="12" fill="#1c71d8" opacity="0.25"></rect>
-
-  <!-- App grid -->
-  <g fill="#ffffff" opacity="0.95">
-    <rect x="40" y="36" width="10" height="10" rx="2"></rect>
-    <rect x="54" y="36" width="10" height="10" rx="2"></rect>
-    <rect x="68" y="36" width="10" height="10" rx="2"></rect>
-    <rect x="40" y="50" width="10" height="10" rx="2"></rect>
-    <rect x="54" y="50" width="10" height="10" rx="2"></rect>
-    <rect x="68" y="50" width="10" height="10" rx="2"></rect>
-  </g>
-
-  <!-- Add badge (raised) -->
-  <circle cx="94" cy="92" r="18" fill="#ff7800"></circle>
-  
-  <!-- Badge highlight -->
-  <circle cx="94" cy="86" r="12" fill="#ffffff" opacity="0.15"></circle>
-
-  <!-- Badge shadow -->
-  <ellipse cx="94" cy="100" rx="14" ry="6" fill="#000000" opacity="0.15"></ellipse>
-
-  <!-- Plus -->
-  <rect x="92" y="82" width="4" height="20" fill="#ffffff"></rect>
-  <rect x="84" y="90" width="20" height="4" fill="#ffffff"></rect>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="128px" viewBox="0 0 128 128" width="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <filter id="a" height="100%" width="100%" x="0%" y="0%">
+        <feColorMatrix color-interpolation-filters="sRGB" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="b">
+        <g filter="url(#a)">
+            <rect fill-opacity="0.08" height="153.6" width="153.6" x="-12.8" y="-12.8"/>
+        </g>
+    </mask>
+    <clipPath id="c">
+        <rect height="128" width="128"/>
+    </clipPath>
+    <mask id="d">
+        <g filter="url(#a)">
+            <rect fill-opacity="0.45" height="153.6" width="153.6" x="-12.8" y="-12.8"/>
+        </g>
+    </mask>
+    <clipPath id="e">
+        <rect height="128" width="128"/>
+    </clipPath>
+    <mask id="f">
+        <g filter="url(#a)">
+            <rect fill-opacity="0.25" height="153.6" width="153.6" x="-12.8" y="-12.8"/>
+        </g>
+    </mask>
+    <clipPath id="g">
+        <rect height="128" width="128"/>
+    </clipPath>
+    <mask id="h">
+        <g filter="url(#a)">
+            <rect fill-opacity="0.95" height="153.6" width="153.6" x="-12.8" y="-12.8"/>
+        </g>
+    </mask>
+    <clipPath id="i">
+        <rect height="128" width="128"/>
+    </clipPath>
+    <mask id="j">
+        <g filter="url(#a)">
+            <rect fill-opacity="0.15" height="153.6" width="153.6" x="-12.8" y="-12.8"/>
+        </g>
+    </mask>
+    <clipPath id="k">
+        <rect height="128" width="128"/>
+    </clipPath>
+    <mask id="l">
+        <g filter="url(#a)">
+            <rect fill-opacity="0.15" height="153.6" width="153.6" x="-12.8" y="-12.8"/>
+        </g>
+    </mask>
+    <clipPath id="m">
+        <rect height="128" width="128"/>
+    </clipPath>
+    <path d="m 28 12 h 72 c 11.046875 0 20 8.953125 20 20 v 56 c 0 11.046875 -8.953125 20 -20 20 h -72 c -11.046875 0 -20 -8.953125 -20 -20 v -56 c 0 -11.046875 8.953125 -20 20 -20 z m 0 0" fill="#3584e4"/>
+    <g mask="url(#b)">
+        <g clip-path="url(#c)">
+            <path d="m 28 12 h 72 c 11.046875 0 20 8.953125 20 20 v 8 c 0 11.046875 -8.953125 20 -20 20 h -72 c -11.046875 0 -20 -8.953125 -20 -20 v -8 c 0 -11.046875 8.953125 -20 20 -20 z m 0 0" fill="#ffffff"/>
+        </g>
+    </g>
+    <g mask="url(#d)">
+        <g clip-path="url(#e)">
+            <path d="m 28 64 h 72 c 11.046875 0 20 8.953125 20 20 v 4 c 0 11.046875 -8.953125 20 -20 20 h -72 c -11.046875 0 -20 -8.953125 -20 -20 v -4 c 0 -11.046875 8.953125 -20 20 -20 z m 0 0" fill="#1c71d8"/>
+        </g>
+    </g>
+    <path d="m 32 24 h 64 c 6.628906 0 12 5.371094 12 12 v 32 c 0 6.628906 -5.371094 12 -12 12 h -64 c -6.628906 0 -12 -5.371094 -12 -12 v -32 c 0 -6.628906 5.371094 -12 12 -12 z m 0 0" fill="#4c97ff"/>
+    <g mask="url(#f)">
+        <g clip-path="url(#g)">
+            <path d="m 32 52 h 64 c 6.628906 0 12 5.371094 12 12 v 4 c 0 6.628906 -5.371094 12 -12 12 h -64 c -6.628906 0 -12 -5.371094 -12 -12 v -4 c 0 -6.628906 5.371094 -12 12 -12 z m 0 0" fill="#1c71d8"/>
+        </g>
+    </g>
+    <g mask="url(#h)">
+        <g clip-path="url(#i)" fill="#ffffff">
+            <path d="m 42 36 h 6 c 1.105469 0 2 0.894531 2 2 v 6 c 0 1.105469 -0.894531 2 -2 2 h -6 c -1.105469 0 -2 -0.894531 -2 -2 v -6 c 0 -1.105469 0.894531 -2 2 -2 z m 0 0"/>
+            <path d="m 56 36 h 6 c 1.105469 0 2 0.894531 2 2 v 6 c 0 1.105469 -0.894531 2 -2 2 h -6 c -1.105469 0 -2 -0.894531 -2 -2 v -6 c 0 -1.105469 0.894531 -2 2 -2 z m 0 0"/>
+            <path d="m 70 36 h 6 c 1.105469 0 2 0.894531 2 2 v 6 c 0 1.105469 -0.894531 2 -2 2 h -6 c -1.105469 0 -2 -0.894531 -2 -2 v -6 c 0 -1.105469 0.894531 -2 2 -2 z m 0 0"/>
+            <path d="m 42 50 h 6 c 1.105469 0 2 0.894531 2 2 v 6 c 0 1.105469 -0.894531 2 -2 2 h -6 c -1.105469 0 -2 -0.894531 -2 -2 v -6 c 0 -1.105469 0.894531 -2 2 -2 z m 0 0"/>
+            <path d="m 56 50 h 6 c 1.105469 0 2 0.894531 2 2 v 6 c 0 1.105469 -0.894531 2 -2 2 h -6 c -1.105469 0 -2 -0.894531 -2 -2 v -6 c 0 -1.105469 0.894531 -2 2 -2 z m 0 0"/>
+            <path d="m 70 50 h 6 c 1.105469 0 2 0.894531 2 2 v 6 c 0 1.105469 -0.894531 2 -2 2 h -6 c -1.105469 0 -2 -0.894531 -2 -2 v -6 c 0 -1.105469 0.894531 -2 2 -2 z m 0 0"/>
+        </g>
+    </g>
+    <path d="m 112 92 c 0 9.941406 -8.058594 18 -18 18 s -18 -8.058594 -18 -18 s 8.058594 -18 18 -18 s 18 8.058594 18 18 z m 0 0" fill="#ff7800"/>
+    <g mask="url(#j)">
+        <g clip-path="url(#k)">
+            <path d="m 106 86 c 0 6.628906 -5.371094 12 -12 12 s -12 -5.371094 -12 -12 s 5.371094 -12 12 -12 s 12 5.371094 12 12 z m 0 0" fill="#ffffff"/>
+        </g>
+    </g>
+    <g mask="url(#l)">
+        <g clip-path="url(#m)">
+            <path d="m 108 100 c 0 3.3125 -6.269531 6 -14 6 s -14 -2.6875 -14 -6 s 6.269531 -6 14 -6 s 14 2.6875 14 6 z m 0 0"/>
+        </g>
+    </g>
+    <g fill="#ffffff">
+        <path d="m 92 82 h 4 v 20 h -4 z m 0 0"/>
+        <path d="m 84 90 h 20 v 4 h -20 z m 0 0"/>
+    </g>
 </svg>
