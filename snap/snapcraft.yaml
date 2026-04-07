@@ -1,6 +1,6 @@
 name: app-registrar
 base: core24
-version: '1.0.0'
+version: '1.0.1'
 title: App Registrar
 summary: Register any executable as a desktop application
 license: GPL-3.0
