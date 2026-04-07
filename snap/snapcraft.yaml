@@ -1,7 +1,13 @@
 name: app-registrar
 base: core24
 version: '1.0.0'
+title: App Registrar
 summary: Register any executable as a desktop application
+license: GPL-3.0
+contact: https://github.com/theUpsider/app-registrar/issues
+issues: https://github.com/theUpsider/app-registrar/issues
+source-code: https://github.com/theUpsider/app-registrar
+website: https://github.com/theUpsider/app-registrar
 description: |
   App Registrar lets you turn any executable or script into a proper
   desktop application — complete with name, icon, categories, and
@@ -29,8 +35,15 @@ apps:
       - home
       - apps-dir
       - config-dir
-    environment:
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages
+      - nautilus-ext-dir
+    slots:
+      - dbus-app-registrar
+
+slots:
+  dbus-app-registrar:
+    interface: dbus
+    bus: session
+    name: io.github.theUpsider.AppRegistrar
 
 plugs:
   apps-dir:
@@ -41,11 +54,22 @@ plugs:
     interface: personal-files
     write:
       - $HOME/.config/nautilus-app-registrar
+  nautilus-ext-dir:
+    interface: personal-files
+    write:
+      - $HOME/.local/share/nautilus-python
 
 parts:
   app-registrar:
-    plugin: python
+    plugin: nil
     source: .
+    override-build: |
+      mkdir -p $CRAFT_PART_INSTALL/lib/app-registrar
+      cp -r app_registrar $CRAFT_PART_INSTALL/lib/app-registrar/
+      cp nautilus_extension.py $CRAFT_PART_INSTALL/lib/app-registrar/
+      mkdir -p $CRAFT_PART_INSTALL/bin
+      cp snap/local/launcher.sh $CRAFT_PART_INSTALL/bin/app-registrar
+      chmod +x $CRAFT_PART_INSTALL/bin/app-registrar
     stage-packages:
       - python3-gi
       - python3-gi-cairo

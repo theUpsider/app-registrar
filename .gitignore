@@ -1,1 +1,28 @@
-app_registrar/__pycache__/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Build and packaging artifacts
+parts/
+prime/
+stage/
+overlay/
+*.snap
+*.deb
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Craft-specific
+.craft/
+
+# Project specific
+app-registrar_1.0.0_amd64.snap
+image[0-9].png
