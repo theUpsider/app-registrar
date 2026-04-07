@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "app-registrar"
+version = "1.0.0"
+description = "Register any executable as a desktop application"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.10"
+
+[project.scripts]
+app-registrar = "app_registrar.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app_registrar*"]

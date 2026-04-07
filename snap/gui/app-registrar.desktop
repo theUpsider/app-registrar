@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=App Registrar
+Comment=Register any executable as a desktop application
+Icon=io.github.theUpsider.AppRegistrar
+Exec=app-registrar
+Categories=Utility;
+Keywords=app;registrar;register;desktop;launcher;executable;
+Terminal=false
+StartupNotify=true

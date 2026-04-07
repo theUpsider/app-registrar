@@ -1,17 +1,58 @@
-name: appinstaller # you probably want to 'snapcraft register <name>'
-base: core24 # the base snap is the execution environment for this snap
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+name: app-registrar
+base: core24
+version: '1.0.0'
+summary: Register any executable as a desktop application
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  App Registrar lets you turn any executable or script into a proper
+  desktop application — complete with name, icon, categories, and
+  keywords — without root access.
 
-grade: devel # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+  Browse, add, edit, and delete your registered app launchers from a
+  clean GNOME-native interface built with GTK 4 and libadwaita.
+
+  Note: The Nautilus "Register as App" right-click menu requires a
+  separate manual install step because Snap sandboxing prevents
+  automatic extension deployment. See the project README for details:
+  https://github.com/theUpsider/app-registrar
+
+grade: stable
+confinement: strict
+
+icon: data/icons/hicolor/scalable/apps/io.github.theUpsider.AppRegistrar.svg
+
+apps:
+  app-registrar:
+    command: bin/app-registrar
+    common-id: io.github.theUpsider.AppRegistrar
+    extensions: [gnome]
+    plugs:
+      - home
+      - apps-dir
+      - config-dir
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages
+
+plugs:
+  apps-dir:
+    interface: personal-files
+    write:
+      - $HOME/.local/share/applications
+  config-dir:
+    interface: personal-files
+    write:
+      - $HOME/.config/nautilus-app-registrar
 
 parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: nil
+  app-registrar:
+    plugin: python
+    source: .
+    stage-packages:
+      - python3-gi
+      - python3-gi-cairo
+      - desktop-file-utils
+
+  icons:
+    plugin: dump
+    source: data/icons
+    organize:
+      'hicolor/': 'usr/share/icons/hicolor/'
