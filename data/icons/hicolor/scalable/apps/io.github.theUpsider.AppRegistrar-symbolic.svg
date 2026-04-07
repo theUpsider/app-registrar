@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="128px" viewBox="0 0 128 128" width="128px" xmlns="http://www.w3.org/2000/svg">
+    <path d="m 28 20 h 72 c 6.628906 0 12 5.371094 12 12 v 48 c 0 6.628906 -5.371094 12 -12 12 h -72 c -6.628906 0 -12 -5.371094 -12 -12 v -48 c 0 -6.628906 5.371094 -12 12 -12 z m 0 0" fill="none" stroke="#000000" stroke-width="8"/>
+    <path d="m 36 36 h 10 v 10 h -10 z m 0 0"/>
+    <path d="m 52 36 h 10 v 10 h -10 z m 0 0"/>
+    <path d="m 68 36 h 10 v 10 h -10 z m 0 0"/>
+    <path d="m 36 52 h 10 v 10 h -10 z m 0 0"/>
+    <path d="m 52 52 h 10 v 10 h -10 z m 0 0"/>
+    <path d="m 68 52 h 10 v 10 h -10 z m 0 0"/>
+    <path d="m 92 80 h 4 v 24 h -4 z m 0 0"/>
+    <path d="m 80 92 h 24 v 4 h -24 z m 0 0"/>
+</svg>
