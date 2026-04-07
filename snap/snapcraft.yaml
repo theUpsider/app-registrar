@@ -1,6 +1,6 @@
 name: app-registrar
 base: core24
-version: '1.0.1'
+version: '1.0.2'
 title: App Registrar
 summary: Register any executable as a desktop application
 license: GPL-3.0
@@ -25,8 +25,7 @@ grade: stable
 confinement: strict
 
 icon: data/icons/hicolor/scalable/apps/io.github.theUpsider.AppRegistrar.svg
-donation: 
-  - davidvfischer@gmail.com
+donation:
   - https://buymeacoffee.com/theupsider
 apps:
   app-registrar:
